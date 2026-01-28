@@ -56,7 +56,17 @@ public class Lab4 {
         // Hint: vowels = a, e, i, o, u
         // Use .toLowerCase(). startsWith()
         // ================================================
-        
+        String[] vowels = {"a", "e", "i", "o", "u"};
+        int counter = 0;
+        for (String item : groceryList) {
+            String lowerItem = item.toLowerCase();
+            for(String letter : vowels){
+                if(lowerItem.startsWith(letter)){
+                    counter += 1;
+                }
+            }
+        }
+ 
         // ================================================
         // STEP 6: Print the final results
         // ================================================
