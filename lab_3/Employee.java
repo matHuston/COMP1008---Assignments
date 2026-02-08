@@ -6,10 +6,7 @@ public abstract class Employee {
     private String socialSecurityNumber;
  
     // TODO 1: Create a constructor
-    public abstract class Employee {
-        private String firstName;
-        private String lastName;
-        private String socialSecurityNumber;
+    
     
         //constructor to initialize the three instance variables
         public Employee(String first, String last, String ssn){
@@ -17,7 +14,7 @@ public abstract class Employee {
             this.lastName = last;
             this.socialSecurityNumber = ssn;
         }
-    }
+
  
     // TODO 2: Create getters
     public String getFirstName() {
