@@ -20,7 +20,15 @@ public abstract class Employee {
     }
  
     // TODO 2: Create getters
-    
+    public String getFirstName() {
+        return firstName;
+    }
+    public String getLastName() {
+        return lastName;
+    }
+    public String getSocialSecurityNumber() {
+        return socialSecurityNumber;
+    }
  
     // TODO 3: Declare abstract method earnings()
     
