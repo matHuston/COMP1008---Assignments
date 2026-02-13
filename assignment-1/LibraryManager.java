@@ -1,89 +1,73 @@
-// package librarymanagement;
 
-// You will create a Library Book Management System in Java. 
-// This program allows users to manage book records using classes, loops, arrays/ArrayLists, and control statements. 
-// You will use encapsulation to protect book information and loops/conditionals for user interaction.
-
-// Requirements
-
-// Create a Book class (Encapsulation & Advanced Class Components)
-// Private fields: title (String), author (String), isbn (String), available (boolean)
-class Book {
-    private String title;
-    private String author;
-    private String isbn;
-    private boolean available;
-
-    // Default constructor and parameterized constructor
-    // Default constructor
-    public Book() {
-        this.title = "";
-        this.author = "";
-        this.isbn = "";
-        this.available = true;
-    }
-
-    // Parameterized constructor
-    public Book(String title, String author, String isbn, boolean available) {
-        this.title = title;
-        this.author = author;
-        this.isbn = isbn;
-        this.available = available;
-    }
-
-    // Getters and setters with validation
-    public String getTitle() {
-        return title;
-    }
-    public void setTitle(String title) {
-        // title should not be null or empty
-        if (title != null && !title.isEmpty()) {
-            this.title = title;
-        }
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-    public void setAuthor(String author) {
-        // author should not be null or empty
-        if (author != null && !author.isEmpty()) {
-            this.author = author;
-        }
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-    public void setIsbn(String isbn) {
-        // isbn must follow a simple pattern (e.g., 10 or 13 characters)
-        if (isbn != null && (isbn.length() == 10 || isbn.length() == 13)) {
-            this.isbn = isbn;
-        }
-    }
-
-    public boolean isAvailable() {
-        return available;
-    }
-    public void setAvailable(boolean available) {
-        this.available = available;
-    }
-    // displayInfo() method to print book details
-    public void displayInfo() {
-        System.out.println("Title: " + title);
-        System.out.println("Author: " + author);
-        System.out.println("ISBN: " + isbn);
-        System.out.println("Status: " + (available ? "Available" : "Checked Out"));
-    }
-}
-    
-
+import java.util.ArrayList;
+import java.util.Scanner;
 
 // 2. Main Program — LibraryManager.java
+public class LibraryManager {
 
-// Use an ArrayList to store multiple Book objects
-// Provide a menu-driven interface for the user:
-// 1.  Add a new book
+    // Use an ArrayList to store multiple Book objects
+    ArrayList<Book> library = new ArrayList<>();
+    
+    // add books to the library
+    public static void addBook(Scanner scanner) {
+        String title = "";
+        String author = "";
+        String isbn = "";
+        boolean available = false;
+        String availableInput = "";
+
+        System.out.println("Enter book title:");
+        title = scanner.nextLine();
+        while (title == null || title.isEmpty()) {
+            System.out.println("Title cannot be empty. Enter book title:");
+            title = scanner.nextLine();
+        }
+
+        System.out.println("Enter book author:");
+        author = scanner.nextLine();
+        while (author == null || author.isEmpty()) {
+            System.out.println("Author cannot be empty. Enter book author:");
+            author = scanner.nextLine();
+        }
+    
+        System.out.println("Enter book ISBN:");
+        isbn = scanner.nextLine();
+        while (isbn == null || (isbn.length() != 10 && isbn.length() != 13)) {
+            System.out.println("ISBN must be 10 or 13 characters. Enter book ISBN:");
+            isbn = scanner.nextLine();
+        }
+        System.out.println("Is the book available? (true/false):");
+        availableInput = scanner.nextLine();
+        while (!availableInput.equalsIgnoreCase("true") && !availableInput.equalsIgnoreCase("false")) {
+            System.out.println("Enter either true or false. Is the book available? (true/false):");
+            availableInput = scanner.nextLine();
+        }
+        if (availableInput.equalsIgnoreCase("true")) {
+            available = true;
+        }
+    }
+    // Provide a menu-driven interface for the user:
+    
+    public static void libraryDisplay(Scanner scanner) {
+        // 1.  Add a new book
+        
+        
+    }
+
+    
+
+    
+
+}
+// public static void main(String[] args) {
+    // private boolean running = true;
+
+// while (running == true) {
+//         // Display menu and handle user input
+//     }
+
+// }
+
 
 // 2. Display all books
 
@@ -108,9 +92,3 @@ class Book {
 // Optional: Sort the ArrayList by title before displaying
 
 
-public class LibraryManager {
-
-    public LibraryManager() {
-    }
-    
-}
