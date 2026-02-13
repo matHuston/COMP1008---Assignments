@@ -5,7 +5,7 @@ import java.util.Scanner;
 // 2. Main Program — LibraryManager.java
 public class LibraryManager {
 
-    // Use an ArrayList to store multiple Book objects
+    // library array list to store book objects
     static ArrayList<Book> library = new ArrayList<>();
     
     // add books to the library
@@ -56,8 +56,9 @@ public class LibraryManager {
 
     } // end of addBook method
 
-    // display books based on search and filters
-    public static void libraryDisplay(Scanner scanner, boolean displayAll, boolean displayAvailable) {
+    // display books based on search and filters 
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    public static void libraryDisplay(Scanner scanner, boolean displayAll, boolean displayAvailable, boolean displayByAuthor, boolean checkoutBook, boolean returnBook) {
 
         int bookCount = 0; // bookCount keeps track of result num of displayed books
         int bookID = 0; // bookID keeps track of EVERY book
@@ -67,31 +68,101 @@ public class LibraryManager {
             for(Book book : library){
                 bookID++;
                 bookCount++;
-                System.out.println("~~~~ Result #" + bookCount + " ID: " + bookID + " ~~~~\n");
+                System.out.println("\n~~~~ Result #" + bookCount + " ID: " + bookID + " ~~~~");
                 book.displayInfo();
+                System.out.print("\n");
             }
             displayAll = false;
-        }
+        } // end case 2
 
         // case 3. Display all available books
         if(displayAvailable == true) {
             for(Book book : library){
                 if(book.isAvailable()){
-                bookID++;
-                bookCount++;
-                System.out.println("~~~~ Result #" + bookCount + " ID: " + bookID + " ~~~~\n");
-                book.displayInfo();
+                    bookID++;
+                    bookCount++;
+                    System.out.println("\n~~~~ Result #" + bookCount + " ID: " + bookID + " ~~~~");
+                    book.displayInfo();
+                    System.out.print("\n");
                 }
             }
             displayAvailable = false;
-        }
-        // case 4. Search books by author
+        } // end case 3
 
+        // case 4. Search books by author
+        if(displayByAuthor == true) {
+            System.out.println("Enter author name:");
+            String authorName = scanner.nextLine();
+            for(Book book : library){
+                if(book.getAuthor().equalsIgnoreCase(authorName)){
+                    bookID++;
+                    bookCount++;
+                    System.out.println("\n~~~~ Result #" + bookCount + " ID: " + bookID + " ~~~~");
+                    book.displayInfo();
+                    System.out.print("\n");
+                }
+            }
+            displayByAuthor = false;
+        } // end case 4
+        
         // case 5. Check out a book (set available to false)
+        if(checkoutBook == true) {
+            System.out.println("Enter book ID to check out:");
+            int checkoutID = 0;
+            // try to get scanner input and parse to int, if a letter/invalid char is input, catch exception
+            try {
+                checkoutID = Integer.parseInt(scanner.nextLine());
+            } 
+            catch (NumberFormatException e) {
+                checkoutBook = false;
+            }
+            // validate book ID
+            // make sure checkout ID isnt larger than the library size and isn't 0
+            if(checkoutID > 0 && checkoutID <= library.size()) {
+                Book bookToCheckout = library.get(checkoutID - 1);
+                //set availbility to false if it can be checked out, otherwise tell user that book is already checked out
+                if(bookToCheckout.isAvailable()) {
+                    bookToCheckout.setAvailable(false);
+                    System.out.println("Book checked out successfully.");
+                } else {
+                    System.out.println("Book is already checked out.");
+                }
+            } else {
+                System.out.println("Invalid book ID.");
+            }
+            checkoutBook = false;
+        } // end case 5
 
         // case 6. Return a book (set available to true)
+        if(returnBook == true) {
+            System.out.println("Enter book ID to return:");
+            int returnID = 0;
+            // try to get scanner input and parse to int, if a letter/invalid char is input, catch exception
+            try {
+                returnID = Integer.parseInt(scanner.nextLine());
+            } 
+            catch (NumberFormatException e) {
+                returnBook = false;
+            }
+            // validate book ID
+            // make sure return ID isnt larger than the library size and isn't 0
+            if(returnID > 0 && returnID <= library.size()) {
+                Book bookToReturn = library.get(returnID - 1);
+                //set availbility to true if it can be returned, otherwise tell user that book is already available
+                if(!bookToReturn.isAvailable()) {
+                    bookToReturn.setAvailable(true);
+                    System.out.println("Book returned successfully.");
+                } else {
+                    System.out.println("Book is already available.");
+                }
+            } else {
+                System.out.println("Invalid book ID.");
+            }
+            returnBook = false;
+        } // end case 6
     }
 
+    // menu ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         // running controls the menu
@@ -114,20 +185,23 @@ public class LibraryManager {
                     break;
                 case "2":
                     // display all books
-                    libraryDisplay(scanner, true, false);
+                    libraryDisplay(scanner, true, false, false, false, false);
                     break;
                 case "3":
                     // display available books
-                    libraryDisplay(scanner, false, true);
+                    libraryDisplay(scanner, false, true, false, false, false);
                     break;
                 case "4":
                     // search by author
+                    libraryDisplay(scanner, false, false, true, false, false);
                     break;
                 case "5":
                     // check out a book
+                    libraryDisplay(scanner, false, false, false, true, false);
                     break;
                 case "6":
                     // return a book
+                    libraryDisplay(scanner, false, false, false, false, true);
                     break;
                 case "7":
                     running = false;
