@@ -7,14 +7,30 @@
 // Requirements
 
 // Create a Book class (Encapsulation & Advanced Class Components)
-// // Private fields: title (String), author (String), isbn (String), available (boolean)
 class Book {
     private String title;
     private String author;
     private String isbn;
     private boolean available;
-}
+    
+    // Default constructor
+    public Book() {
+        this.title = "";
+        this.author = "";
+        this.isbn = "";
+        this.available = true;
+    }
 
+    // Parameterized constructor
+    public Book(String title, String author, String isbn, boolean available) {
+        this.title = title;
+        this.author = author;
+        this.isbn = isbn;
+        this.available = available;
+    }
+
+    // Getters and setters with validation
+// Private fields: title (String), author (String), isbn (String), available (boolean)
 // Default constructor and parameterized constructor
 // Getters and setters with validation:
 // title and author cannot be empty
